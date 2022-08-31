@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { FaBold, FaItalic, FaUnderline, FaCode } from "react-icons/fa";
 
 class EditorText extends Component {
@@ -21,10 +21,14 @@ class EditorText extends Component {
         }
         return false;
     }
-
+    convertContentStateToJson() {
+        const { editorState } = this.state;
+        const contentState = editorState.getCurrentContent();
+        const raw = convertToRaw(contentState);
+        return JSON.stringify(raw, null, 2);
+    }
     render() {
         const { editorState } = this.state;
-
         return (
             <div className="container">
                 <div className="editorText">
@@ -43,7 +47,12 @@ class EditorText extends Component {
                         />
                     </div>
                 </div>
+                <p>Display ContentState:</p>
+                <pre>
+                    {this.convertContentStateToJson()}
+                </pre>
             </div>
+
         );
     }
 }

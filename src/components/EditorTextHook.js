@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js';
 import { FaBold, FaItalic, FaUnderline, FaCode } from "react-icons/fa";
 
 const EditorText = () => {
@@ -12,6 +12,11 @@ const EditorText = () => {
             return true;
         }
         return false;
+    }
+    const convertContentStateToJson = () => {
+        const contentState = editorState.getCurrentContent();
+        const raw = convertToRaw(contentState);
+        return JSON.stringify(raw, null, 2);
     }
     return (
         <div className="container">
@@ -31,7 +36,8 @@ const EditorText = () => {
                     />
                 </div>
             </div>
-
+            <p>Display ContentState:</p>
+            <pre>{convertContentStateToJson()}</pre>
         </div>
     );
 }
