@@ -14,8 +14,12 @@ class EditorText extends Component {
     render() {
         const { editorState } = this.state;
         return (
-            <div>
-                <Editor editorState={editorState} onChange={this.onChange} />
+            <div className="container">
+                <div className="editorText">
+                    <div className="editor">
+                        <Editor editorState={editorState} onChange={this.onChange} />
+                    </div>
+                </div>
             </div>
         );
     }
