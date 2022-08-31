@@ -21,7 +21,14 @@ code {
 .editorText{
   width:100%;
   border: 1px solid #ddd;
+  margin: 2rem 0;
 }
 .editor{
   min-height:300px;
 }
+.btnSave{
+  text-align: center; 
+}
+.btnSave > button{
+    cursor: pointer;
+  }

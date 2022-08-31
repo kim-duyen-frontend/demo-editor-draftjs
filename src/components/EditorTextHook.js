@@ -18,6 +18,10 @@ const EditorText = () => {
         const raw = convertToRaw(contentState);
         return JSON.stringify(raw, null, 2);
     }
+    const handleSaveContent = () => {
+        let textJson = convertContentStateToJson();
+        localStorage.setItem("data", textJson);
+    }
     return (
         <div className="container">
             <div className="editorText">
@@ -35,6 +39,9 @@ const EditorText = () => {
                         placeholder="Input your text..."
                     />
                 </div>
+            </div>
+            <div className="btnSave">
+                <button onClick={handleSaveContent}>Save Content</button>
             </div>
             <p>Display ContentState:</p>
             <pre>{convertContentStateToJson()}</pre>

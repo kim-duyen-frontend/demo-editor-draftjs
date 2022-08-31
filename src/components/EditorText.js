@@ -27,6 +27,10 @@ class EditorText extends Component {
         const raw = convertToRaw(contentState);
         return JSON.stringify(raw, null, 2);
     }
+    handleSaveContent() {
+        let textJson = this.convertContentStateToJson();
+        localStorage.setItem("data", textJson);
+    }
     render() {
         const { editorState } = this.state;
         return (
@@ -46,6 +50,9 @@ class EditorText extends Component {
                             placeholder="Input your text..."
                         />
                     </div>
+                </div>
+                <div className="btnSave">
+                    <button onClick={this.handleSaveContent.bind(this)}>Save Content</button>
                 </div>
                 <p>Display ContentState:</p>
                 <pre>
