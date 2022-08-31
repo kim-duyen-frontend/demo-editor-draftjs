@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { convertToRaw, Editor, EditorState, RichUtils } from 'draft-js';
+import { convertFromRaw, convertToRaw, Editor, EditorState, RichUtils } from 'draft-js';
 import { FaBold, FaItalic, FaUnderline, FaCode } from "react-icons/fa";
 
 const EditorText = () => {
@@ -20,7 +20,19 @@ const EditorText = () => {
     }
     const handleSaveContent = () => {
         let textJson = convertContentStateToJson();
-        localStorage.setItem("data", textJson);
+        localStorage.setItem("draftEditorContentJson", textJson);
+    }
+    const loadContent = () => {
+        const isExist = localStorage.getItem("draftEditorContentJson");
+        return isExist ? JSON.parse(isExist) : null;
+    }
+    const setEditorContent = () => {
+        let data = loadContent();
+        if (data !== null) {
+            let contentState = convertFromRaw(data);
+            let newStateEditor = EditorState.createWithContent(contentState);
+            setEditorState(newStateEditor);
+        }
     }
     return (
         <div className="container">
@@ -42,6 +54,7 @@ const EditorText = () => {
             </div>
             <div className="btnSave">
                 <button onClick={handleSaveContent}>Save Content</button>
+                <button onClick={setEditorContent}>Load Content</button>
             </div>
             <p>Display ContentState:</p>
             <pre>{convertContentStateToJson()}</pre>
